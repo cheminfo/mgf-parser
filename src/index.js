@@ -1,6 +1,12 @@
 import sortX from 'ml-array-xy-sort-x';
 import uniqueX from 'ml-arrayxy-uniquex';
 
+/**
+ * parses MGF files into a JSON
+ * @param {string} rawData input data (MGF)
+ * @param {object} options recordTypes allows to filter the data entries based on their type
+ * @returns {array<object>} parsed data
+ */
 export function parse(rawData, options = {}) {
   const { recordTypes = '' } = options;
   let lines = rawData.split(/[\r\n]+/);
