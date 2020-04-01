@@ -4,7 +4,7 @@ import uniqueX from 'ml-arrayxy-uniquex';
 /**
  * parses MGF files into a JSON
  * @param {string} rawData input data (MGF)
- * @param {object} options recordTypes allows to filter the data entries based on their type
+ * @param {object} options recordTypes (default: '') allows to filter the data entries based on their type
  * @returns {array<object>} parsed data
  */
 export function parse(rawData, options = {}) {
@@ -36,8 +36,11 @@ export function parse(rawData, options = {}) {
       continue;
     } else if (line.includes('=')) {
       // verify if line is part of the metadata
-      let lineArray = line.split('=');
-      entry.meta[lineArray[0]] = lineArray[1];
+      let equalPos = line.indexOf('=');
+      let key = line.substring(0, equalPos);
+      let value = line.substring(equalPos + 1);
+
+      entry.meta[key] = value;
     } else if (line.substring(0, 3) === 'END') {
       // detect end of an entry and push it to results
       entry.data = sortX(ms);
