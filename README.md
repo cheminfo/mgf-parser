@@ -4,7 +4,7 @@
 [![build status][ci-image]][ci-url]
 [![npm download][download-image]][download-url]
 
-.
+Parse an MGF file into a JSON.
 
 ## Installation
 
@@ -13,10 +13,24 @@
 ## Usage
 
 ```js
-import library from 'mgf-parser';
+parse(rawData[, options])
+```
+Parses the text input `rawdata` into a JSON.
 
-const result = library(args);
-// result is ...
+```js
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+import parse from 'mgf-parser';
+
+let rawData = readFileSync(
+  join(__dirname, './data.mgf'),
+  'utf8',
+);
+
+let result = parse(rawData);
+
+// result is the parsed data (array of objects)
 ```
 
 ## [API Documentation](https://cheminfo.github.io/mgf-parser/)
