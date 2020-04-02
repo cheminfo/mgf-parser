@@ -1,14 +1,32 @@
-import sortX from 'ml-array-xy-sort-x';
-import uniqueX from 'ml-arrayxy-uniquex';
+import normalizeY from 'ml-array-normed';
+import sortArrayXY from 'ml-array-xy-sort-x';
+import uniqueArrayXY from 'ml-arrayxy-uniquex';
 
 /**
  * parses MGF files into a JSON
  * @param {string} rawData input data (MGF)
- * @param {object} options recordTypes (default: '') allows to filter the data entries based on their type
+ * @param {object} options
+ * @param {string} [options.recordTypes = ''] allows to filter the data entries based on their type
+ * @param {bool} [options.sortX = false] should the MS spectrum be sorted by x values
+ * @param {bool} [options.uniqueX = false] should merge the repeating x values of MS spectrum (summing the y values together). Sets sortX to true if true.
+ * @param {bool} [options.normedY = false] should the MS spectrum be normalized (sum of y values = 1)
+ * @param {number} [options.maxY = undefined] if not undefined, rescale MS spectrum so that max Y value equals maxY (must be bigger than 0)
  * @returns {array<object>} parsed data
  */
 export function parse(rawData, options = {}) {
-  const { recordTypes = '' } = options;
+  const {
+    recordTypes = '',
+    uniqueX = false,
+    normedY = false,
+    maxY = undefined,
+  } = options;
+
+  let sortX = uniqueX
+    ? true
+    : options.sortX === undefined
+    ? false
+    : options.sortX;
+
   let lines = rawData.split(/[\r\n]+/);
   let results = [];
   let entry;
@@ -43,8 +61,34 @@ export function parse(rawData, options = {}) {
       entry.meta[key] = value;
     } else if (line.substring(0, 3) === 'END') {
       // detect end of an entry and push it to results
-      entry.data = sortX(ms);
-      uniqueX(entry.data);
+      let treatedSpectrum = { x: [], y: [] };
+
+      if (sortX && uniqueX) {
+        treatedSpectrum = sortArrayXY(ms);
+        uniqueArrayXY(treatedSpectrum);
+      } else if (sortX && !uniqueX) {
+        treatedSpectrum = sortArrayXY(ms);
+      } else if (!sortX && !uniqueX) {
+        treatedSpectrum = ms;
+      }
+
+      if (normedY) {
+        entry.data.x = treatedSpectrum.x;
+        entry.data.y = normalizeY(treatedSpectrum.y);
+      } else if (maxY !== undefined) {
+        entry.data.x = treatedSpectrum.x;
+        entry.data.y = normalizeY(treatedSpectrum.y, {
+          algorithm: 'max',
+          maxValue: maxY,
+        });
+      } else if (!normedY && maxY === undefined) {
+        entry.data = treatedSpectrum;
+      } else if (normedY && maxY !== undefined) {
+        throw new Error(
+          'Error: option maxY must be undefined if normedY is true',
+        );
+      }
+
       results.push(entry);
     } else {
       // handling the case where line is a mass spectrum entry
