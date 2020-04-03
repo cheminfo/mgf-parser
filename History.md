@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/cheminfo/mgf-parser/compare/v0.1.0...v0.2.0) (2020-04-03)
+
+
+### Features
+
+* new delimiters are accepted for spectrum ([fd18744](https://github.com/cheminfo/mgf-parser/commit/fd187445ec8226ab300abbe0a840035af026ba20))
+
+
+
 # 0.1.0 (2020-04-02)
 
 
