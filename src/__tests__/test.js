@@ -26,16 +26,27 @@ let basicSpectrumData = readFileSync(
   'utf8',
 );
 
+let tabDelimitedData = readFileSync(
+  join(__dirname, '../../data/tabDelimitedSpectrum.mgf'),
+  'utf8',
+);
+
 describe('index', () => {
   it('parse test database', () => {
     let result = parse(data);
-    expect(parse(data)).toHaveLength(1);
+    expect(result).toHaveLength(1);
     expect(result).toMatchSnapshot();
+    // console.log(result);
+  });
+  it('parse tab delimited spectrum', () => {
+    let result = parse(tabDelimitedData);
+    expect(parse(data)).toHaveLength(1);
+    expect(result[0].data.x).toHaveLength(214);
     // console.log(result);
   });
   it('metadata corrupted (lacking "=")', () => {
     expect(() => parse(corruptedData)).toThrow(
-      'Error: Data line number 7 could not be processed',
+      'Parsing error at line number 7',
     );
   });
   it('other entry type', () => {
@@ -58,10 +69,10 @@ describe('index', () => {
     expect(result[0].kind).toBe('IONS');
   });
   it('sortX = true and uniqueX = false', () => {
-    let result = parse(basicSpectrumData, { sortX: false, uniqueX: false });
+    let result = parse(basicSpectrumData, { sortX: true, uniqueX: false });
     expect(result).toStrictEqual([
       {
-        data: { x: [4, 5, 5, 1, 2, 4], y: [44, 55, 5, 111, 32, 64] },
+        data: { x: [1, 2, 4, 4, 5, 5], y: [111, 32, 44, 64, 55, 5] },
         kind: 'IONS',
         meta: {},
       },
@@ -94,5 +105,10 @@ describe('index', () => {
   it('maxY = 100', () => {
     let result = parse(basicSpectrumData, { maxY: 100 });
     expect(max(result[0].data.y)).toBe(100);
+  });
+  it('should throw error (normedY = true, maxY = 100', () => {
+    expect(() =>
+      parse(basicSpectrumData, { maxY: 100, normedY: true }),
+    ).toThrow('Option maxY must be undefined if normedY is true');
   });
 });

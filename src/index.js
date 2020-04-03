@@ -3,7 +3,7 @@ import sortArrayXY from 'ml-array-xy-sort-x';
 import uniqueArrayXY from 'ml-arrayxy-uniquex';
 
 /**
- * parses MGF files into a JSON
+ * parses MGF files into a JSON. The spectrum can be delimited by ' ', '\t', ',' or ';'.
  * @param {string} rawData input data (MGF)
  * @param {object} options
  * @param {string} [options.recordTypes = ''] allows to filter the data entries based on their type
@@ -72,10 +72,10 @@ export function parse(rawData, options = {}) {
         treatedSpectrum = ms;
       }
 
-      if (normedY) {
+      if (normedY && maxY === undefined) {
         entry.data.x = treatedSpectrum.x;
         entry.data.y = normalizeY(treatedSpectrum.y);
-      } else if (maxY !== undefined) {
+      } else if (!normedY && maxY !== undefined) {
         entry.data.x = treatedSpectrum.x;
         entry.data.y = normalizeY(treatedSpectrum.y, {
           algorithm: 'max',
@@ -84,17 +84,15 @@ export function parse(rawData, options = {}) {
       } else if (!normedY && maxY === undefined) {
         entry.data = treatedSpectrum;
       } else if (normedY && maxY !== undefined) {
-        throw new Error(
-          'Error: option maxY must be undefined if normedY is true',
-        );
+        throw new Error('Option maxY must be undefined if normedY is true');
       }
 
       results.push(entry);
     } else {
       // handling the case where line is a mass spectrum entry
-      let lineArray = line.split(' ');
+      let lineArray = line.split(/[ \t,;]+/); // considering multiple delimiter types
       if (lineArray.length !== 2) {
-        throw new Error(`Error: Data line number ${i} could not be processed`);
+        throw new Error(`Parsing error at line number ${i}`);
       }
       // creating mass spectrum (1 array of mz and 1 array of intensities)
       ms.x.push(Number(lineArray[0]));
