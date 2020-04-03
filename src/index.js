@@ -7,9 +7,9 @@ import uniqueArrayXY from 'ml-arrayxy-uniquex';
  * @param {string} rawData input data (MGF)
  * @param {object} options
  * @param {string} [options.recordTypes = ''] allows to filter the data entries based on their type
- * @param {bool} [options.sortX = false] should the MS spectrum be sorted by x values
- * @param {bool} [options.uniqueX = false] should merge the repeating x values of MS spectrum (summing the y values together). Sets sortX to true if true.
- * @param {bool} [options.normedY = false] should the MS spectrum be normalized (sum of y values = 1)
+ * @param {boolean} [options.sortX = false] should the MS spectrum be sorted by x values
+ * @param {boolean} [options.uniqueX = false] should merge the repeating x values of MS spectrum (summing the y values together). Sets sortX to true if true.
+ * @param {boolean} [options.normedY = false] should the MS spectrum be normalized (sum of y values = 1)
  * @param {number} [options.maxY = undefined] if not undefined, rescale MS spectrum so that max Y value equals maxY (must be bigger than 0)
  * @returns {array<object>} parsed data
  */
