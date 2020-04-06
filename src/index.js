@@ -27,14 +27,15 @@ export function parse(rawData, options = {}) {
     ? false
     : options.sortX;
 
-  let lines = rawData.split(/[\r\n]+/);
+  let lines = rawData.split(/\r?\n/);
   let results = [];
   let entry;
   let ms;
   let skip = false;
 
   for (let i = 0; i < lines.length; i++) {
-    let line = lines[i];
+    let line = lines[i].trim(); // remove space before of after line with trim
+    if (!line) continue; // handling empty lines
 
     // verify if line is the beginning of an entry
     if (line.startsWith('BEGIN')) {
@@ -92,7 +93,7 @@ export function parse(rawData, options = {}) {
       // handling the case where line is a mass spectrum entry
       let lineArray = line.split(/[ \t,;]+/); // considering multiple delimiter types
       if (lineArray.length !== 2) {
-        throw new Error(`Parsing error at line number ${i}`);
+        throw new Error(`Could not parse line number ${i + 1}`);
       }
       // creating mass spectrum (1 array of mz and 1 array of intensities)
       ms.x.push(Number(lineArray[0]));

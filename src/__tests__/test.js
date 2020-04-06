@@ -31,6 +31,11 @@ let tabDelimitedData = readFileSync(
   'utf8',
 );
 
+let emptyLinesData = readFileSync(
+  join(__dirname, '../../data/emptyLines.mgf'),
+  'utf8',
+);
+
 describe('index', () => {
   it('parse test database', () => {
     let result = parse(data);
@@ -45,9 +50,7 @@ describe('index', () => {
     // console.log(result);
   });
   it('metadata corrupted (lacking "=")', () => {
-    expect(() => parse(corruptedData)).toThrow(
-      'Parsing error at line number 7',
-    );
+    expect(() => parse(corruptedData)).toThrow('Could not parse line number 8');
   });
   it('other entry type', () => {
     expect(parse(otherEntryTypeData)[0].kind).toBe('PEPTIDES');
@@ -110,5 +113,13 @@ describe('index', () => {
     expect(() =>
       parse(basicSpectrumData, { maxY: 100, normedY: true }),
     ).toThrow('Option maxY must be undefined if normedY is true');
+  });
+
+  // handling empty lines inside of the data
+  it('tests empty lines and corrupted', () => {
+    expect(() => parse(emptyLinesData)).toThrow(
+      'Could not parse line number 21',
+    );
+    // console.log(result);
   });
 });
