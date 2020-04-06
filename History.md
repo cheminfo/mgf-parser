@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/cheminfo/mgf-parser/compare/v0.2.0...v0.2.1) (2020-04-06)
+
+
+### Bug Fixes
+
+* handling empty lines ([d8bc1ef](https://github.com/cheminfo/mgf-parser/commit/d8bc1ef44d4a0ae33f3ed832ed8da6301c7ce3e5))
+
+
+
 # [0.2.0](https://github.com/cheminfo/mgf-parser/compare/v0.1.0...v0.2.0) (2020-04-03)
 
 
