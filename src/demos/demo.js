@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // Command to run this file: `node -r esm demo.js | more`
 
 import { readFileSync } from 'fs';
