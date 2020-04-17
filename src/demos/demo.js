@@ -12,8 +12,8 @@ let data = readFileSync(
 );
 
 const parsedData = parse(data, {
-  uniqueX: false,
-  normedY: false,
+  uniqueX: true,
+  normedY: true,
 });
 
 console.log('Number of entries:', parsedData.length);
