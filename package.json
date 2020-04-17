@@ -1,6 +1,6 @@
 {
   "name": "mgf-parser",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Parse an MGF file into a JSON.",
   "main": "lib/index.js",
   "module": "src/index.js",
