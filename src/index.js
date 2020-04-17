@@ -5,7 +5,7 @@ import uniqueArrayXY from 'ml-arrayxy-uniquex';
 /**
  * parses MGF files into a JSON. The spectrum can be delimited by ' ', '\t', ',' or ';'.
  * @param {string} rawData input data (MGF)
- * @param {object} options
+ * @param {object} [options={}]
  * @param {string} [options.recordTypes = ''] allows to filter the data entries based on their type
  * @param {boolean} [options.sortX = false] should the MS spectrum be sorted by x values
  * @param {boolean} [options.uniqueX = false] should merge the repeating x values of MS spectrum (summing the y values together). Sets sortX to true if true.
