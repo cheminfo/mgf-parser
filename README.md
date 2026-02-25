@@ -41,7 +41,7 @@ let result = parse(rawData);
 
 [npm-image]: https://img.shields.io/npm/v/mgf-parser.svg
 [npm-url]: https://www.npmjs.com/package/mgf-parser
-[ci-image]: https://github.com/cheminfo/mgf-parser/workflows/Node.js%20CI/badge.svg?branch=master
+[ci-image]: https://github.com/cheminfo/mgf-parser/workflows/Node.js%20CI/badge.svg?branch=main
 [ci-url]: https://github.com/cheminfo/mgf-parser/actions?query=workflow%3A%22Node.js+CI%22
 [download-image]: https://img.shields.io/npm/dm/mgf-parser.svg
 [download-url]: https://www.npmjs.com/package/mgf-parser
