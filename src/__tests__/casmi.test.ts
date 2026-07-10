@@ -11,5 +11,5 @@ test('parse casmi mgf file throws on invalid pre-header lines', () => {
     'utf8',
   );
 
-  expect(() => parse(data)).toThrowError('Could not parse line number 2');
+  expect(() => parse(data)).toThrow('Could not parse line number 2');
 });

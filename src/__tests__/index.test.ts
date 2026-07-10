@@ -57,9 +57,7 @@ test('parse tab delimited spectrum', () => {
 });
 
 test('metadata corrupted (lacking "=")', () => {
-  expect(() => parse(corruptedData)).toThrowError(
-    'Could not parse line number 8',
-  );
+  expect(() => parse(corruptedData)).toThrow('Could not parse line number 8');
 });
 
 test('other entry type', () => {
@@ -141,13 +139,11 @@ test('maxY = 100', () => {
 });
 
 test('should throw error (normedY = true, maxY = 100)', () => {
-  expect(() =>
-    parse(basicSpectrumData, { maxY: 100, normedY: true }),
-  ).toThrowError('Option maxY must be undefined if normedY is true');
+  expect(() => parse(basicSpectrumData, { maxY: 100, normedY: true })).toThrow(
+    'Option maxY must be undefined if normedY is true',
+  );
 });
 
 test('tests empty lines and corrupted', () => {
-  expect(() => parse(emptyLinesData)).toThrowError(
-    'Could not parse line number 21',
-  );
+  expect(() => parse(emptyLinesData)).toThrow('Could not parse line number 21');
 });

@@ -4,7 +4,8 @@ import { join } from 'node:path';
 import { MF } from 'mf-parser';
 import { Molecule } from 'openchemlib';
 
-import { parse, ParsedEntry } from '../src/index.ts';
+import type { ParsedEntry } from '../src/index.ts';
+import { parse } from '../src/index.ts';
 
 const data = readFileSync(
   join(import.meta.dirname, '../src/__tests__/data/UNPD_ISDB_R_p04.mgf'),
@@ -38,8 +39,10 @@ function verifyData(entries: ParsedEntry[], options: VerifyOptions = {}) {
   };
 
   for (let i = 0; i < entries.length; i++) {
-    const dataSmiles = entries[i].meta.SMILES;
-    const dataMass = entries[i].meta.EXACTMASS;
+    const entry = entries[i];
+    if (!entry) continue;
+    const dataSmiles = entry.meta.SMILES ?? '';
+    const dataMass = entry.meta.EXACTMASS ?? '';
 
     const molecule = Molecule.fromSmiles(dataSmiles);
     const mf = molecule.getMolecularFormula().formula;
@@ -62,7 +65,7 @@ function verifyData(entries: ParsedEntry[], options: VerifyOptions = {}) {
     }
   }
 
-  if (differences.mass.length !== 0) {
+  if (differences.mass.length > 0) {
     differences.allTheSame = false;
   }
 

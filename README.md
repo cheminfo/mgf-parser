@@ -15,20 +15,18 @@ Parse an MGF file into a JSON.
 ```js
 parse(rawData[, options])
 ```
+
 Parses the text input `rawdata` into a JSON.
 
 ```js
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-import parse from 'mgf-parser';
+import { parse } from 'mgf-parser';
 
-let rawData = readFileSync(
-  join(__dirname, './data.mgf'),
-  'utf8',
-);
+const rawData = readFileSync(join(import.meta.dirname, './data.mgf'), 'utf8');
 
-let result = parse(rawData);
+const result = parse(rawData);
 
 // result is the parsed data (array of objects)
 ```
