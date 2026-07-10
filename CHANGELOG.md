@@ -2,6 +2,17 @@
 
 
 
+## [1.0.0](https://github.com/cheminfo/mgf-parser/compare/v0.2.2...v1.0.0) (2026-07-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to TS and type:module
+
+### Code Refactoring
+
+* migrate to TS and type:module ([0d11a1b](https://github.com/cheminfo/mgf-parser/commit/0d11a1bd87d561e7a14e7f27133158e40455db6b))
+
 ## [0.2.1](https://github.com/cheminfo/mgf-parser/compare/v0.2.0...v0.2.1) (2020-04-06)
 
 
@@ -35,6 +46,3 @@
 * create MGF class ([a0985ff](https://github.com/cheminfo/mgf-parser/commit/a0985ff47792d82366ed86c68ddc7d89926ae2cd))
 * create module ([b2698e1](https://github.com/cheminfo/mgf-parser/commit/b2698e1a39236ecacd7880f398074924401e954b))
 * implemented parse function ([1bc8b84](https://github.com/cheminfo/mgf-parser/commit/1bc8b847ae9526093c58429799b6918df3649ab6))
-
-
-

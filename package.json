@@ -1,6 +1,6 @@
 {
   "name": "mgf-parser",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Parse an MGF file into a JSON.",
   "type": "module",
   "exports": {
