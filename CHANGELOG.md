@@ -2,6 +2,13 @@
 
 
 
+## [1.1.0](https://github.com/cheminfo/mgf-parser/compare/v1.0.0...v1.1.0) (2026-09-18)
+
+
+### Features
+
+* support comments, global parameters and the charge column ([4bac51f](https://github.com/cheminfo/mgf-parser/commit/4bac51fd8188c9e5768d48e58573ae0378531856))
+
 ## [1.0.0](https://github.com/cheminfo/mgf-parser/compare/v0.2.2...v1.0.0) (2026-07-10)
 
 
