@@ -6,14 +6,92 @@
 <h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p><code>$ npm i mgf-parser</code></p>
 <h2 id="usage" class="tsd-anchor-link">Usage<a href="#usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<pre><code class="js"><span class="hl-0">parse</span><span class="hl-1">(</span><span class="hl-2">rawData</span><span class="hl-1">[, </span><span class="hl-2">options</span><span class="hl-1">])</span>
+<pre><code class="js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">readFileSync</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;node:fs&#39;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">join</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;node:path&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">parse</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;mgf-parser&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">rawData</span><span class="hl-1"> = </span><span class="hl-6">readFileSync</span><span class="hl-1">(</span><span class="hl-6">join</span><span class="hl-1">(</span><span class="hl-0">import</span><span class="hl-1">.</span><span class="hl-2">meta</span><span class="hl-1">.</span><span class="hl-2">dirname</span><span class="hl-1">, </span><span class="hl-3">&#39;./data.mgf&#39;</span><span class="hl-1">), </span><span class="hl-3">&#39;utf8&#39;</span><span class="hl-1">);</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">result</span><span class="hl-1"> = </span><span class="hl-6">parse</span><span class="hl-1">(</span><span class="hl-2">rawData</span><span class="hl-1">, { </span><span class="hl-2">uniqueX:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">, </span><span class="hl-2">maxY:</span><span class="hl-1"> </span><span class="hl-7">100</span><span class="hl-1"> });</span><br/><br/><span class="hl-8">// result[0].kind -&gt; &#39;IONS&#39;</span><br/><span class="hl-8">// result[0].meta -&gt; { TITLE: &#39;Spectrum 1&#39;, PEPMASS: &#39;983.6&#39;, ... }</span><br/><span class="hl-8">// result[0].data -&gt; { x: [846.6, 846.8, ...], y: [25.08, 15.12, ...] }</span>
 </code><button type="button">Copy</button></pre>
 
-<p>Parses the text input <code>rawdata</code> into a JSON.</p>
-<pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-2">readFileSync</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-4">&#39;node:fs&#39;</span><span class="hl-1">;</span><br/><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-2">join</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-4">&#39;node:path&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-2">parse</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-4">&#39;mgf-parser&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">rawData</span><span class="hl-1"> = </span><span class="hl-0">readFileSync</span><span class="hl-1">(</span><span class="hl-0">join</span><span class="hl-1">(</span><span class="hl-3">import</span><span class="hl-1">.</span><span class="hl-2">meta</span><span class="hl-1">.</span><span class="hl-2">dirname</span><span class="hl-1">, </span><span class="hl-4">&#39;./data.mgf&#39;</span><span class="hl-1">), </span><span class="hl-4">&#39;utf8&#39;</span><span class="hl-1">);</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-0">parse</span><span class="hl-1">(</span><span class="hl-2">rawData</span><span class="hl-1">);</span><br/><br/><span class="hl-7">// result is the parsed data (array of objects)</span>
-</code><button type="button">Copy</button></pre>
-
+<h3 id="_" class="tsd-anchor-link"><code>parse(rawData[, options])</code><a href="#_" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Parses the text input <code>rawData</code> and returns one entry per <code>BEGIN</code> / <code>END</code> block:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>Record type, i.e. what follows <code>BEGIN</code> — usually <code>IONS</code>.</td>
+</tr>
+<tr>
+<td><code>meta</code></td>
+<td><code>Record&lt;string, string&gt;</code></td>
+<td>Parameters of the entry, on top of the global parameters.</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td><code>DataXY</code></td>
+<td>The mass spectrum, as <code>x</code> (m/z) and <code>y</code> (intensity) arrays.</td>
+</tr>
+</tbody>
+</table>
+<p>Options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>recordTypes</code></td>
+<td><code>string</code></td>
+<td><code>''</code></td>
+<td>Regular expression the record type must match. By default all entries are returned.</td>
+</tr>
+<tr>
+<td><code>sortX</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Sort the spectrum by increasing m/z.</td>
+</tr>
+<tr>
+<td><code>uniqueX</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Merge repeating m/z values, summing their intensities. Implies <code>sortX</code>.</td>
+</tr>
+<tr>
+<td><code>normedY</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Normalize the spectrum so that the sum of the intensities is 1.</td>
+</tr>
+<tr>
+<td><code>maxY</code></td>
+<td><code>number</code></td>
+<td><code>undefined</code></td>
+<td>Rescale the spectrum so that the largest intensity equals <code>maxY</code>. Conflicts with <code>normedY</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="supported-syntax" class="tsd-anchor-link">Supported syntax<a href="#supported-syntax" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>The parser follows the <a href="https://www.matrixscience.com/help/data_file_help.html">Mascot generic format</a>:</p>
+<ul>
+<li>Parameters declared before the first <code>BEGIN</code> are global: they are copied into
+the <code>meta</code> of every entry, where a parameter of the entry overrides them.</li>
+<li>Lines starting with <code>#</code>, <code>;</code>, <code>!</code> or <code>/</code> are comments, and blank lines are ignored.</li>
+<li>A peak line holds an m/z and an intensity, optionally followed by the fragment
+charge, which is ignored. Values may be separated by <code> </code>, <code>\t</code>, <code>,</code> or <code>;</code>.</li>
+</ul>
+<p>An unparsable line, or fragment ions found outside of a <code>BEGIN</code> / <code>END</code> block,
+throws an error mentioning the line number.</p>
 <h2 id="api-documentation" class="tsd-anchor-link"><a href="https://cheminfo.github.io/mgf-parser/">API Documentation</a><a href="#api-documentation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <h2 id="license" class="tsd-anchor-link">License<a href="#license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p><a href="media/LICENSE">MIT</a></p>
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#mgf-parser"><span>mgf-<wbr/>parser</span></a><ul><li><a href="#installation"><span>Installation</span></a></li><li><a href="#usage"><span>Usage</span></a></li><li><a href="#api-documentation"><span>API <wbr/>Documentation</span></a></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">mgf-parser</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer></footer><div class="overlay"></div></body></html>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#mgf-parser"><span>mgf-<wbr/>parser</span></a><ul><li><a href="#installation"><span>Installation</span></a></li><li><a href="#usage"><span>Usage</span></a></li><li><ul><li><a href="#_"><span></span></a></li><li><a href="#supported-syntax"><span>Supported syntax</span></a></li></ul></li><li><a href="#api-documentation"><span>API <wbr/>Documentation</span></a></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">mgf-parser</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer></footer><div class="overlay"></div></body></html>
