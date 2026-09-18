@@ -1,0 +1,6 @@
+COM=Fragment ions are only allowed inside a BEGIN/END block
+123.456 789
+BEGIN IONS
+PEPMASS=983.6
+846.60 73
+END IONS

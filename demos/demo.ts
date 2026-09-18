@@ -1,4 +1,4 @@
-// Command to run this file: `node --experimental-strip-types demo.ts | more`
+// Command to run this file: `node demo.ts | more`
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';

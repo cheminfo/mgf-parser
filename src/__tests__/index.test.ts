@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { xMaxValue, xSum } from 'ml-spectra-processing';
 import { expect, test } from 'vitest';
 
-import { parse } from '../index.js';
+import { parse } from '../index.ts';
 
 const data = readFileSync(join(import.meta.dirname, './data/test.mgf'), 'utf8');
 const corruptedData = readFileSync(

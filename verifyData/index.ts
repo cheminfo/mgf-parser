@@ -51,18 +51,18 @@ function verifyData(entries: ParsedEntry[], options: VerifyOptions = {}) {
     const mass = mfInfo.monoisotopicMass;
 
     const massDiff = Math.abs(Number(dataMass) - mass);
-    if (massDiff > massError) {
-      const massEntry: MassDifference = {
-        entry: i,
-        data: dataMass,
-        check: mass,
-        diff: massDiff,
-      };
-      // eslint-disable-next-line no-console
-      console.log(massEntry);
+    if (massDiff <= massError) continue;
 
-      differences.mass.push(massEntry);
-    }
+    const massEntry: MassDifference = {
+      entry: i,
+      data: dataMass,
+      check: mass,
+      diff: massDiff,
+    };
+    // eslint-disable-next-line no-console
+    console.log(massEntry);
+
+    differences.mass.push(massEntry);
   }
 
   if (differences.mass.length > 0) {
